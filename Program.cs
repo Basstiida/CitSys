@@ -15,6 +15,8 @@ namespace SisCit_System
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllers(); //Línea para permitir el uso de controladores en nuestra aplicación
+            builder.Services.AddEndpointsApiExplorer(); //Línea para permitir el uso de controladores en nuestra aplicación
+            builder.Services.AddSwaggerGen(); //Línea para permitir el uso de controladores en nuestra aplicación
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
             //Lineas agregadas para nuestra base de datos:
@@ -27,6 +29,8 @@ namespace SisCit_System
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.UseSwaggerUI();
+                app.UseSwagger();
             }
 
             app.UseHttpsRedirection();

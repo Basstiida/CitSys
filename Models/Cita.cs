@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SisCit_System.Models
 {
@@ -17,8 +18,11 @@ namespace SisCit_System.Models
         public int id_negocio { get; set; }
 
         //Propiedades de navegación
-        public Servicio Servicio { get; set; }
-        public Usuario Usuario { get; set; }
-        public Negocio Negocio { get; set; }
+        [ForeignKey("id_servicio")]
+        public Servicio? Servicio { get; set; }
+        [ForeignKey("id_usuario")]
+        public Usuario? Usuario { get; set; }
+        [ForeignKey("id_negocio")]
+        public Negocio? Negocio { get; set; }
     }
 }
