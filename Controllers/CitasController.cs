@@ -34,5 +34,34 @@ namespace SisCit_System.Controllers
 
             return Ok(cita);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult ActualizarCita(int id, [FromBody] Cita citaActualizada)
+        {
+            // 1. Validamos que los IDs coincidan
+            if (id != citaActualizada.id_cita)
+            {
+                return BadRequest("El ID de la URL no coincide con la información de la cita.");
+            }
+
+            //2. Buscamos la cita en SQL Server
+            var citaExistente = _context.Citas.Find(id);
+            if (citaExistente == null)
+            {
+            return NotFound("No se encontró la cita que intentas actualizar.");
+            }
+
+            //3. Actualizamos los datos
+            citaExistente.fecha_cita = citaActualizada.fecha_cita;
+            citaExistente.hora_cita = citaActualizada.hora_cita;
+            citaExistente.id_servicio = citaActualizada.id_servicio;
+            citaExistente.id_usuario = citaActualizada.id_usuario;
+            citaExistente.id_negocio = citaActualizada.id_negocio;
+
+            // 4. Guardamos los cambios
+            _context.SaveChanges();
+
+            return Ok("Cita actualizada correctamente.");
+        }
     }
 }
